@@ -2,10 +2,6 @@
   "name": "antdv-hook-enhance",
   "version": "0.0.0",
   "private": true,
-  "main": "src/lib/index.js",
-  "types": "src/lib/index.d.ts",
-  "author": "wangqingjia",
-  "license": "ISC",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",

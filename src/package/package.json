@@ -1,0 +1,25 @@
+{
+    "name": "ant-design-vue-hook",
+    "version": "1.0.1",
+    "description": "",
+    "directories": {
+        "doc": "doc"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc",
+        "release": "tsc && npm publish"
+    },
+    "dependencies": {
+        "vue": "^3.2.20",
+        "ant-design-vue": "^3.2.20"
+    },
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "author": "wangqingjia",
+    "license": "ISC",
+    "files": [
+        "lib/**/*",
+        "src/**/*"
+    ]
+}
