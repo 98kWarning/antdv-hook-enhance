@@ -1,6 +1,30 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import { useAutoSelect } from '@hooks/components'
+
+const result = useAutoSelect({
+  apiFun: () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve([
+          {
+            value: 1,
+            label: '张三'
+          },
+          {
+            value: 2,
+            label: '李四'
+          },
+          {
+            value: 3,
+            label: '王五'
+          }
+        ])
+      }, 1000)
+    })
+  }
+})
 </script>
 
 <template>
@@ -8,6 +32,7 @@ import HelloWorld from './components/HelloWorld.vue'
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
+      <a-select v-bind="result.bindProps"></a-select>
       <HelloWorld msg="You did it!" />
 
       <nav>
@@ -32,7 +57,7 @@ header {
 }
 
 nav {
-  width: 100%;
+  wvalueth: 100%;
   font-size: 12px;
   text-align: center;
   margin-top: 2rem;
@@ -49,14 +74,14 @@ nav a.router-link-exact-active:hover {
 nav a {
   display: inline-block;
   padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+  border-left: 1px solvalue var(--color-border);
 }
 
 nav a:first-of-type {
   border: 0;
 }
 
-@media (min-width: 1024px) {
+@media (min-wvalueth: 1024px) {
   header {
     display: flex;
     place-items: center;
