@@ -1,152 +1,17 @@
-<script setup lang="ts">
-import SelectDemo from '../demo/select/SelectDemo.vue'
-import SelectDemo2 from '../demo/select/SelectDemo2.vue'
-import SelectDemo3 from '../demo/select/SelectDemo3.vue'
-</script>
-
 # useAutoSelect
 
 ## 示例
 
 #### 简单用法
 
-<SelectDemo />
-
-```vue
-<script setup lang="ts">
-import { useAutoSelect } from '@hooks/components'
-
-function getSelectOptionAPI() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
-        {
-          value: 1,
-          label: '张三'
-        },
-        {
-          value: 2,
-          label: '李四'
-        },
-        {
-          value: 3,
-          label: '王五'
-        }
-      ])
-    }, 1000)
-  })
-}
-
-const result = useAutoSelect({
-  apiFun: getSelectOptionAPI
-})
-</script>
-
-<template>
-  <div class="col">
-    <a-select v-bind="result.bindProps"></a-select>
-  </div>
-</template>
-```
-
+<preview path="../demo/select/SelectDemo.vue"  title="title" description="component description content"></preview>
 #### 手动执行
 
-<SelectDemo2 />
-
-```vue
-<script setup lang="ts">
-import { useAutoSelect } from '@hooks/components'
-import { onMounted } from 'vue'
-
-function getSelectOptionAPI() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
-        {
-          value: 1,
-          label: '张三'
-        },
-        {
-          value: 2,
-          label: '李四'
-        },
-        {
-          value: 3,
-          label: '王五'
-        }
-      ])
-    }, 1000)
-  })
-}
-
-const result = useAutoSelect({
-  apiFun: getSelectOptionAPI,
-  queryInMount: false
-})
-
-onMounted(() => {
-  result.loadData()
-})
-</script>
-
-<template>
-  <div class="col">
-    <a-select v-bind="result.bindProps"></a-select>
-  </div>
-</template>
-```
+<preview path="../demo/select/SelectDemo2.vue"></preview>
 
 #### 转换结果
 
-<SelectDemo3 />
-
-```vue
-<script setup lang="ts">
-import { useAutoSelect } from '@hooks/components'
-
-function getSelectOptionAPI() {
-  return new Promise<any[]>((resolve) => {
-    setTimeout(() => {
-      resolve([
-        {
-          id: 1,
-          name: '张三'
-        },
-        {
-          id: 2,
-          name: '李四'
-        },
-        {
-          id: 3,
-          name: '王五'
-        }
-      ])
-    }, 1000)
-  })
-}
-
-const result = useAutoSelect({
-  apiFun: getSelectOptionAPI,
-  placeholder: '选择吧',
-  transformDataFun(data) {
-    return data.map((e) => {
-      return {
-        value: e.id,
-        label: e.name
-      }
-    })
-  }
-})
-</script>
-
-<template>
-  <div class="col">
-    <a-select v-bind="result.bindProps"></a-select>
-  </div>
-</template>
-```
-
-
+<preview path="../demo/select/SelectDemo3.vue"></preview>
 
 ## 参数
 | 参数             | 描述                            | 必选  | 类型             | 默认值 |

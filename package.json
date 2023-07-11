@@ -20,6 +20,8 @@
     "register:components": "vitepress-rc --docsDir doc"
   },
   "dependencies": {
+    "@vitepress-demo-preview/component": "^2.3.2",
+    "@vitepress-demo-preview/plugin": "^1.2.1",
     "ant-design-vue": "^3.2.20",
     "lodash-es": "^4.17.21",
     "pinia": "^2.1.3",

@@ -1,9 +1,11 @@
 import { defineConfig } from 'vitepress'
 import { fileURLToPath, URL } from 'node:url'
+import { containerPreview, componentPreview } from '@vitepress-demo-preview/plugin'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'antdv-hook-enhance',
   description: 'A VitePress Site',
+  appearance: false,
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
@@ -34,6 +36,12 @@ export default defineConfig({
       alias: {
         '@hooks': fileURLToPath(new URL('../../src/package/src', import.meta.url))
       }
+    }
+  },
+  markdown: {
+    config(md) {
+      md.use(containerPreview)
+      md.use(componentPreview)
     }
   }
   // markdown: {
