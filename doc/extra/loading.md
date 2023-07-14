@@ -1,5 +1,3 @@
-# useAutoSelect
-
 ## 示例
 
 #### 简单用法

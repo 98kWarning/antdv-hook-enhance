@@ -1,85 +1,19 @@
-# useTable
+# usePaginationTable
 
-This page demonstrates some of the built-in markdown extensions provided by VitePress.
+## 示例
 
-## Syntax Highlighting
+<preview path="../demo/table/TableDemo1.vue" title="数据展示" description="接管表格中的查询、分页事件"></preview>
 
-VitePress provides Syntax Highlighting powered by [Shiki](https://github.com/shikijs/shiki), with additional features like line-highlighting:
+## 参数
+| 参数      | 描述                               | 必选  | 类型        | 默认值 |
+| --------- | ---------------------------------- | :---: | ----------- | :----: |
+| apiFun    | 调用远程接口返回数据               | true  | ()=>[]      |   -    |
+| paramsFun | 允许点击时获取参数，传递给接口使用 | false | ()=>any     |   -    |
+| onSuccess | 结果成功时的回调                   | false | (any)=>void |   -    |
 
-**Input**
 
-````
-```js{4}
-export default {
-  data () {
-    return {
-      msg: 'Highlighted!'
-    }
-  }
-}
-```
-````
-
-**Output**
-
-```js{4}
-export default {
-  data () {
-    return {
-      msg: 'Highlighted!'
-    }
-  }
-}
-```
-
-## Custom Containers
-
-**Input**
-
-```md
-::: info
-This is an info box.
-:::
-
-::: tip
-This is a tip.
-:::
-
-::: warning
-This is a warning.
-:::
-
-::: danger
-This is a dangerous warning.
-:::
-
-::: details
-This is a details block.
-:::
-```
-
-**Output**
-
-::: info
-This is an info box.
-:::
-
-::: tip
-This is a tip.
-:::
-
-::: warning
-This is a warning.
-:::
-
-::: danger
-This is a dangerous warning.
-:::
-
-::: details
-This is a details block.
-:::
-
-## More
-
-Check out the documentation for the [full list of markdown extensions](https://vitepress.dev/guide/markdown).
+## 实例属性与方法
+| 参数    | 描述                  | 类型        |
+| ------- | --------------------- | ----------- |
+| loading | 控制按钮的loading状态 | boolean     |
+| onClick | 接管按钮的点击事件    | ()=>promise |

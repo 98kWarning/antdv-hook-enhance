@@ -21,12 +21,16 @@ export default defineConfig({
         ]
       },
       {
-        text: 'hook列表',
+        text: '组件相关',
         items: [
           { text: 'select', link: '/components/select' },
           { text: 'button', link: '/components/button' },
           { text: 'table', link: '/components/table' }
         ]
+      },
+      {
+        text: '扩展用法',
+        items: [{ text: 'loading', link: '/extra/loading' }]
       }
     ],
     socialLinks: [{ icon: 'github', link: 'https://github.com/vuejs/vitepress' }]
