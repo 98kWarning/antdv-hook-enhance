@@ -1,8 +1,6 @@
-import { onMounted, ref, UnwrapRef, reactive, shallowReadonly } from 'vue'
+import { onMounted, ref, UnwrapRef } from 'vue'
 import { TApiFun } from '../type'
 import { hookResult } from '../utils'
-
-type Readonly<T extends object> = ReturnType<typeof shallowReadonly<T>>
 
 /* 下拉框组件需要的数据格式
  */

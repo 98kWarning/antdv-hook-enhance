@@ -1,129 +1,119 @@
-import { reactive, shallowRef, onUnmounted } from 'vue';
-import { cloneDeep } from 'lodash-es';
-import { ValidationRule } from 'ant-design-vue/lib/form/Form';
+import { reactive, shallowRef, onUnmounted } from 'vue'
+import { cloneDeep } from 'lodash-es'
+import { RuleObject } from 'ant-design-vue/lib/form'
+import { hookResult } from '../utils'
 
 // type RulesRecord<T> = Record<keyof T, ValidationRule | ValidationRule[]>;
 type RulesRecord<T> = {
-  [key in keyof T]?: ValidationRule | ValidationRule[];
-};
+  [key in keyof T]?: RuleObject
+}
 
 interface SimpleFormProps<T> {
-  state: T;
-  rules?: RulesRecord<T>;
+  state: T
+  rules?: RulesRecord<T>
   labelCol?: {
-    span?: number;
-    offset?: number;
-  };
+    span?: number
+    offset?: number
+  }
   wrapperCol?: {
-    span?: number;
-    offset?: number;
-  };
-  onFinish?: (params: any) => void;
+    span?: number
+    offset?: number
+  }
+  onFinish?: (params: any) => void
 }
 
 export function useSimpleForm<T extends Object>(prop: SimpleFormProps<T>) {
-  const { state, rules, labelCol, wrapperCol } = prop;
+  const { state, rules, labelCol, wrapperCol } = prop
 
-  const initSnapshot = cloneDeep(state);
+  const initSnapshot = cloneDeep(state)
 
-  const formLabelCol = labelCol || { span: 6 };
-  const formWrapperCol = wrapperCol || { span: 18 };
+  const formLabelCol = labelCol || { span: 6 }
+  const formWrapperCol = wrapperCol || { span: 18 }
 
-  const formState = reactive<T>(state);
+  const formState = reactive<T>(state)
 
-  const formRef = shallowRef<any>(null);
+  const formRef = shallowRef<any>(null)
 
   function onFinish(params: any) {
     if (prop.onFinish) {
-      prop.onFinish(params);
+      prop.onFinish(params)
     }
   }
 
-  function setFieldsValue(params) {
+  function setFieldsValue(params: T[any]) {
     for (const key in params) {
-      formState[key] = params[key];
+      formState[key] = params[key]
     }
   }
 
   function backToInit() {
     for (const key in state) {
       // @ts-ignore
-      formState[key] = initSnapshot[key];
+      formState[key] = initSnapshot[key]
     }
   }
 
   function returnVerifyRef(method: (instance: any) => Promise<any>) {
     if (formRef.value) {
-      return method(formRef.value);
+      return method(formRef.value)
     } else {
-      return Promise.reject(new Error('表单formRef为null'));
+      return Promise.reject(new Error('表单formRef为null'))
     }
   }
 
-  // function returnVerifyRef2(method: (instance: any, ...params) => Promise<any>) {
-  //   return (...params) => {
-  //     console.log('--==returnVerifyRef2==--', ...params);
-  //     if (formRef.value) {
-  //       return method(formRef.value, ...params);
-  //     } else {
-  //       return Promise.reject(new Error('表单formRef为null'));
-  //     }
-  //   };
-  // }
-
   function resetFields() {
     return returnVerifyRef((form) => {
-      return form.resetFields();
-    });
+      return form.resetFields()
+    })
   }
 
-  function clearValidate(...params) {
+  function clearValidate(...params: any[]) {
     return returnVerifyRef((form) => {
-      return form.clearValidate(...params);
-    });
+      return form.clearValidate(...params)
+    })
   }
 
-  function validate(...params) {
+  function validate(...params: any[]) {
     return returnVerifyRef((form) => {
-      return form.validate(...params);
-    });
+      return form.validate(...params)
+    })
   }
 
   // const validate = returnVerifyRef((form, ...params) => {
   //   return form.validate(...params);
   // });
 
-  function scrollToField(...params) {
+  function scrollToField(...params: any[]) {
     return returnVerifyRef((form) => {
-      return form.scrollToField(...params);
-    });
+      return form.scrollToField(...params)
+    })
   }
 
-  function setRef(el) {
-    formRef.value = el;
+  function setRef(el: any) {
+    formRef.value = el
   }
 
   onUnmounted(() => {
-    formRef.value = null;
-  });
+    formRef.value = null
+  })
 
-  return {
-    bindProps: {
+  return hookResult(
+    {
+      validate,
+      state: formState,
+      setFieldsValue,
+      resetFields,
+      clearValidate,
+      scrollToField,
+      backToInit
+    },
+    {
       ref: setRef,
       model: formState,
       rules,
       wrapperCol: formWrapperCol,
       labelCol: formLabelCol,
-    },
-    bindEvents: {
-      finish: onFinish,
-    },
-    validate,
-    state: formState,
-    setFieldsValue,
-    resetFields,
-    clearValidate,
-    scrollToField,
-    backToInit,
-  };
+      onFinish
+    }
+  )
 }

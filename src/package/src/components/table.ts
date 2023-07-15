@@ -1,5 +1,6 @@
 import { onMounted, reactive, ref } from 'vue'
-
+import { hookResult } from '../utils'
+import { getConfig } from '../config'
 interface PaginationTableProps {
   current?: number
   pageSize?: number
@@ -11,6 +12,8 @@ interface PaginationTableProps {
 }
 
 export function usePaginationTable(prop: PaginationTableProps) {
+  const { pagination, responseHandler } = getConfig()
+
   const {
     queryInMount = true,
     apiFun,
@@ -40,8 +43,8 @@ export function usePaginationTable(prop: PaginationTableProps) {
 
   function queryTableData() {
     let queryParams = {
-      pageNo: paginationData.current,
-      pageSize: paginationData.pageSize
+      [pagination?.current]: paginationData.current,
+      [pagination?.pageSize]: paginationData.pageSize
     }
     if (getQueryParams) {
       const otherParams = getQueryParams()
@@ -94,17 +97,14 @@ export function usePaginationTable(prop: PaginationTableProps) {
     return queryTableData()
   }
 
-  return {
-    bindProps: reactive({
-      loading,
-      pagination: paginationData,
-      dataSource: dataSource,
-      onChange: onChange
-    }),
-    execute: queryTableData,
-    refresh: queryTableData,
-    resetPage,
-    reload,
-    loading
-  }
+  return hookResult(
+    {
+      execute: queryTableData,
+      refresh: queryTableData,
+      resetPage,
+      reload,
+      loading
+    },
+    { loading, pagination: paginationData, dataSource: dataSource, onChange: onChange }
+  )
 }
