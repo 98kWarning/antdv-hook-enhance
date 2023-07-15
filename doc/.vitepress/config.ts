@@ -15,10 +15,7 @@ export default defineConfig({
     sidebar: [
       {
         text: '起步',
-        items: [
-          { text: '起步', link: '/getting-started' },
-          { text: '示例', link: '/api-examples' }
-        ]
+        items: [{ text: '使用示例', link: '/getting-started' }]
       },
       {
         text: '组件相关',
@@ -43,6 +40,10 @@ export default defineConfig({
     }
   },
   markdown: {
+    theme: {
+      light: 'vitesse-light',
+      dark: 'vitesse-dark'
+    },
     config(md) {
       md.use(containerPreview)
       md.use(componentPreview)

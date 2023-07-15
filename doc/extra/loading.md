@@ -1,29 +1,40 @@
-## 示例
+# loading状态控制相关
 
-#### 简单用法
+## useAutoRequest
 
-<preview path="../demo/select/SelectDemo.vue"  title="简单用法" description="模拟业务中使用字典"></preview>
-#### 手动执行
+<preview path="../demo/loading/Demo1.vue"  title="针对单个接口的loading状态" description="多个按钮使用同一个状态，第二个参数可选"></preview>
 
-<preview path="../demo/select/SelectDemo2.vue"  title="手动执行" description="特殊情况下的手动取参"></preview>
+### 参数
+| 参数    | 描述                 | 必选  | 类型        | 默认值 |
+| ------- | -------------------- | :---: | ----------- | :----: |
+| fun     | 调用远程接口返回数据 | true  | ()=>Promise |   -    |
+| options | 调用时的附加选项     | false | 见下文      |   -    |
 
-#### 转换结果
+#### options
 
-<preview path="../demo/select/SelectDemo3.vue" title="转换结果" description="接口结果匹配组件参数"></preview>
-
-## 参数
-| 参数             | 描述                            | 必选  | 类型             | 默认值 |
-| ---------------- | ------------------------------- | :---: | ---------------- | :----: |
-| apiFun           | 调用远程接口返回数据            | true  | ()=>[]           |   -    |
-| queryInMount     | 在onMounted时调用接口初始化数据 | false | boolean          |  true  |
-| initQueryParams  | 调用远程接口时传入的默认参数    | false | any[]            |   -    |
-| transformDataFun | 远程接口返回数据转化为option    | false | (data:any[])=>[] |   -    |
-| placeholder      | 组件的placeholder               | false | string           |   -    |
+| 参数      | 描述            | 必选  | 类型                | 默认值 |
+| --------- | --------------- | :---: | ------------------- | :----: |
+| loading   | 初始loading状态 | false | boolean             | false  |
+| onSuccess | 成功时的回调    | false | (data: any) => void |   -    |
 
 
-## 实例属性与方法
-| 参数       | 描述                       | 类型               |
-| ---------- | -------------------------- | ------------------ |
-| bindProps  | 绑定给组件的属性值         | {}                 |
-| loadData   | 手动调用远程接口           | ()=>promise        |
-| setOptions | 手动设置select的option属性 | (options:[])=>void |
+### 返回值
+| 参数           | 描述                         | 类型        |
+| -------------- | ---------------------------- | ----------- |
+| requestLoading | loading状态                  | boolean     |
+| run            | 调用函数，参数与入参保持一致 | ()=>Promise |
+
+## useAutoLoading
+
+<preview path="../demo/loading/Demo2.vue"  title="针对多个接口的loading状态" description="多个按钮使用同一个状态，第二个参数可选"></preview>
+
+### 参数
+| 参数           | 描述            | 必选  | 类型    | 默认值 |
+| -------------- | --------------- | :---: | ------- | :----: |
+| defaultLoading | 初始loading状态 | false | boolean | false  |
+
+### 返回值
+| 参数           | 描述                                                                                                       | 类型                       |
+| -------------- | ---------------------------------------------------------------------------------------------------------- | -------------------------- |
+| requestLoading | loading状态                                                                                                | boolean                    |
+| run            | 包裹函数，参数为一个promise，回参也是promise，函数内部会监听入参promise的状态，并在适当时机更改loading状态 | (promise:Promise)=>Promise |
