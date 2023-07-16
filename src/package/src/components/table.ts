@@ -43,8 +43,8 @@ export function usePaginationTable(prop: PaginationTableProps) {
 
   function queryTableData() {
     let queryParams = {
-      [pagination?.current]: paginationData.current,
-      [pagination?.pageSize]: paginationData.pageSize
+      [pagination.current]: paginationData.current,
+      [pagination.pageSize]: paginationData.pageSize
     }
     if (getQueryParams) {
       const otherParams = getQueryParams()
@@ -55,15 +55,16 @@ export function usePaginationTable(prop: PaginationTableProps) {
     }
     loading.value = true
     return apiFun(queryParams)
+      .then(responseHandler)
       .then((result) => {
         if (transformData) {
-          dataSource.value = transformData(result.records)
+          dataSource.value = transformData(result[pagination.resultData])
         } else {
-          dataSource.value = result.records
+          dataSource.value = result[pagination.resultData]
         }
-        paginationData.total = result.total
-        paginationData.current = result.current
-        paginationData.pageSize = result.size
+        paginationData.total = result[pagination.resultTotal]
+        paginationData.current = result[pagination.current]
+        paginationData.pageSize = result[pagination.resultPageSize]
         return result
       })
       .catch((err) => {

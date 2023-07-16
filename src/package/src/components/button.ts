@@ -1,6 +1,6 @@
 import { ref, reactive } from 'vue'
 import { TApiFun } from '../type'
-
+import { getConfig } from '../config'
 interface BtnRequestProps<TData, TParams extends any[]> {
   apiFun: TApiFun<TData, TParams>
   paramsFun?: () => any
@@ -13,12 +13,15 @@ export function useBtnRequest<TData, TParams extends any[] = any[]>(
 ) {
   const { apiFun, paramsFun, onSuccess } = props
 
+  const { responseHandler } = getConfig()
+
   const requestLoading = ref(false)
 
   const run = () => {
     const params = paramsFun ? paramsFun() : []
     requestLoading.value = true
     return apiFun(...params)
+      .then(responseHandler<TData>)
       .then((res) => {
         onSuccess && onSuccess(res)
         return res

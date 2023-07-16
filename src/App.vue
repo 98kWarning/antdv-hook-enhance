@@ -7,20 +7,24 @@ const result = useAutoSelect({
   apiFun: () => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve([
-          {
-            value: 1,
-            label: '张三'
-          },
-          {
-            value: 2,
-            label: '李四'
-          },
-          {
-            value: 3,
-            label: '王五'
-          }
-        ])
+        resolve({
+          code: 10,
+          msg: 'net work error',
+          data: [
+            {
+              value: 1,
+              label: '张三'
+            },
+            {
+              value: 2,
+              label: '李四'
+            },
+            {
+              value: 3,
+              label: '王五'
+            }
+          ]
+        })
       }, 1000)
     })
   }

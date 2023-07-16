@@ -1,6 +1,7 @@
 import { onMounted, ref, UnwrapRef } from 'vue'
 import { TApiFun } from '../type'
 import { hookResult } from '../utils'
+import { getConfig } from '../config'
 
 /* 下拉框组件需要的数据格式
  */
@@ -52,6 +53,8 @@ export interface IAutoSelectResult<TData, TParams extends any[]> {
 export function useAutoSelect<TData = any, TParams extends any[] = any[]>(
   prop: IAutoSelectProps<TData, TParams>
 ): IAutoSelectResult<TData, TParams> {
+  const { responseHandler } = getConfig()
+
   const {
     queryInMount = true,
     placeholder = '请选择',
@@ -78,37 +81,40 @@ export function useAutoSelect<TData = any, TParams extends any[] = any[]>(
       loading.value = true
     }
     setOptions([])
-    return prop.apiFun(...params).then(
-      (res) => {
-        let data
-        //   转换数据
-        if (transformDataFun) {
-          data = transformDataFun(res)
-        } else {
-          data = res as SelectOptions[]
-        }
-
-        options.value = data
-        placeholderText.value = placeholder
-
-        loading.value = false
-        return res
-      },
-      (err) => {
-        // 未知错误，可能是代码抛出的错误，或是网络错误
-        loading.value = false
-        placeholderText.value = err.message
-        options.value = [
-          {
-            value: '-1',
-            label: err.message,
-            disabled: true
+    return prop
+      .apiFun(...params)
+      .then(responseHandler<TData>)
+      .then(
+        (res) => {
+          let data
+          //   转换数据
+          if (transformDataFun) {
+            data = transformDataFun(res)
+          } else {
+            data = res as SelectOptions[]
           }
-        ]
-        // 接着抛出错误
-        return Promise.reject(err)
-      }
-    )
+
+          options.value = data
+          placeholderText.value = placeholder
+
+          loading.value = false
+          return res
+        },
+        (err) => {
+          // 未知错误，可能是代码抛出的错误，或是网络错误
+          loading.value = false
+          placeholderText.value = err.message
+          options.value = [
+            {
+              value: '-1',
+              label: err.message,
+              disabled: true
+            }
+          ]
+          // 接着抛出错误
+          return Promise.reject(err)
+        }
+      )
   }
 
   function setOptions(data: SelectOptions[]) {
