@@ -51,4 +51,4 @@ const result = useAutoSelect({
 ```
 # 其他
 
-除此之外，我们还准备了一些扩展hook函数，如控制loading的[useAutoRequest](/extra/loading.html)
+除此之外，我们还准备了一些扩展hook函数，如控制`loading`的[`useAutoRequest`](/extra/loading.html)
