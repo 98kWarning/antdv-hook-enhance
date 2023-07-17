@@ -8,7 +8,7 @@ function getPaginationData() {
         total: 10,
         current: 1,
         pageSize: 10,
-        records: [
+        data: [
           {
             id: 1,
             name: '张三'

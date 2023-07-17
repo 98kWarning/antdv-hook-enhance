@@ -10,7 +10,8 @@ import router from './router'
 
 initConfig({
   pagination: {
-    pageSize: 'pageSize'
+    pageSize: 'size',
+    current: 'current'
   },
   responseHandler: (res: any) => {
     if (res.code === 0) {

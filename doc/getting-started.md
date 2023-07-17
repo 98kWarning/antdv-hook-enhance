@@ -8,7 +8,7 @@
 
 ## 安装
 
-```base
+```shell
 pnpm add ant-design-vue-hook
 ```
 

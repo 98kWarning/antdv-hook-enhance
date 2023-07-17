@@ -15,7 +15,10 @@ export default defineConfig({
     sidebar: [
       {
         text: '起步',
-        items: [{ text: '使用示例', link: '/getting-started' }]
+        items: [
+          { text: '使用示例', link: '/getting-started' },
+          { text: '自定义配置', link: '/custom-setting' }
+        ]
       },
       {
         text: '组件相关',
