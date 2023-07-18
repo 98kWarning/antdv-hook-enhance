@@ -1,6 +1,6 @@
 {
     "name": "ant-design-vue-hook",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "",
     "directories": {
         "doc": "doc"
@@ -19,7 +19,11 @@
     "author": "wangqingjia",
     "license": "ISC",
     "files": [
-        "lib/**/*",
-        "src/**/*"
-    ]
+        "lib/**/*"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/98kWarning/antdv-hook-enhance"
+    },
+    "homepage": "https://bdjf.site"
 }
