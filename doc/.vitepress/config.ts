@@ -33,7 +33,7 @@ export default defineConfig({
         items: [{ text: 'loading', link: '/extra/loading' }]
       }
     ],
-    socialLinks: [{ icon: 'github', link: 'https://github.com/vuejs/vitepress' }]
+    socialLinks: [{ icon: 'github', link: 'https://github.com/98kWarning/antdv-hook-enhance' }]
   },
   vite: {
     resolve: {
